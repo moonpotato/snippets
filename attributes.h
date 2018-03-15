@@ -92,7 +92,7 @@
 #else
 # define fallthrough
 #endif
-        
+
 #if defined(CC_MSVC)
 # define noinline __declspec(noinline)
 #elif defined(CC_GNU_COMPAT)
@@ -100,5 +100,17 @@
 #else
 # define noinline
 #endif
+
+#undef CXX_DEPRECATED
+#undef CXX_NORETURN
+#undef CXX_ATTRIBUTES
+#undef STDC_NORETURN
+
+#undef CC_MSVC
+#undef CC_GNU_COMPAT
+#undef CC_CLANG
+#undef CC_INTEL
+#undef CC_GCC
+#undef CC_UNKNOWN
 
 #endif
