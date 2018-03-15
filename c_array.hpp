@@ -1,3 +1,6 @@
+#ifndef C_ARRAY_HPP_INCLUDED
+#define C_ARRAY_HPP_INCLUDED
+
 #include <cstddef> // For std::size_t
 
 // The following functions provide a safer way of getting information
@@ -15,3 +18,5 @@ constexpr std::size_t array_elemsz (T(&)[N]) { return sizeof (T); }
 // The total size occupied by a C-style array
 template <typename T, std::size_t N>
 constexpr std::size_t array_size   (T(&)[N]) { return sizeof (T[N]); }
+
+#endif
