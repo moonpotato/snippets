@@ -1,6 +1,13 @@
 #ifndef ATTRIBUTES_H_INCLUDED
 #define ATTRIBUTES_H_INCLUDED
 
+// These macros attempt to provide a more compiler- and standard-
+// independent way of accessing some attributes that are common to
+// most C/C++ compilers.
+
+// Determine which of the attributes have standard forms in the current
+// C or C++ standard being compiled. Save them into macros for later.
+
 #if defined(__cplusplus)
 # if (__cplusplus >= 201703L)
 #  define CXX_FALLTHROUGH
@@ -19,6 +26,9 @@
 #  define STDC_NORETURN
 # endif
 #endif
+
+// Try to determine the compiler manafacturer. Many now claim to be
+// __GNUC__, so default to GCC only if no other is recognized.
 
 #if defined(_MSC_VER)
 # define CC_MSVC
@@ -57,6 +67,9 @@
 # define deprecated(msg)
 #endif
 
+// Attribute unused: a given name might be unused, but is still allowed
+// to be.
+
 #if defined(CXX_UNUSED)
 # define unused [[maybe_unused]]
 #elif defined(CC_MSVC)
@@ -86,7 +99,7 @@
 #elif defined(CC_GNU_COMPAT)
 # if __GNUC__ >= 7
 #  define fallthrough __attribute__((fallthrough))
-# else
+# else // Older GCC versions didn't warn, so doesn't matter.
 #  define fallthrough
 # endif
 #else
@@ -100,6 +113,8 @@
 #else
 # define noinline
 #endif
+
+// Avoid polluting the global namespace with our internal variables.
 
 #undef CXX_DEPRECATED
 #undef CXX_NORETURN
