@@ -67,9 +67,6 @@
 # define deprecated(msg)
 #endif
 
-// Attribute unused: a given name might be unused, but is still allowed
-// to be.
-
 #if defined(CXX_UNUSED)
 # define unused [[maybe_unused]]
 #elif defined(CC_MSVC)
@@ -114,7 +111,7 @@
 # define noinline
 #endif
 
-// Avoid polluting the global namespace with our internal variables.
+// Avoid polluting the global namespace with our internal macros.
 
 #undef CXX_DEPRECATED
 #undef CXX_NORETURN
