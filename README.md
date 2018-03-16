@@ -11,7 +11,8 @@ arrays. So far this includes:
 
 - Getting array size, element size and element count.
 
-But you should probably just be using std::array anyway...
+But you should probably just be using std::array anyway, at least if
+you have C++11 or higher available.
 
 ### attributes.h
 
