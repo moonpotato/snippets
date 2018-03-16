@@ -113,6 +113,9 @@
 
 // Avoid polluting the global namespace with our internal macros.
 
+#undef CXX_FALLTHROUGH
+#undef CXX_NODISCARD
+#undef CXX_UNUSED
 #undef CXX_DEPRECATED
 #undef CXX_NORETURN
 #undef CXX_ATTRIBUTES
