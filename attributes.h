@@ -89,8 +89,6 @@
 
 #if defined(CXX_FALLTHROUGH)
 # define FALLTHROUGH [[fallthrough]]
-#elif defined(CC_MSVC)
-# define FALLTHROUGH _Check_return_
 #elif defined(CC_CLANG)
 # define FALLTHROUGH [[clang::fallthrough]]
 #elif defined(CC_GNU_COMPAT)
