@@ -46,69 +46,82 @@
 #endif
 
 #if defined(CXX_NORETURN)
-# define noreturn [[noreturn]]
+# define NORETURN [[noreturn]]
 #elif defined(STDC_NORETURN)
-# define noreturn _Noreturn
+# define NORETURN _Noreturn
 #elif defined(CC_MSVC)
-# define noreturn __declspec(noreturn)
+# define NORETURN __declspec(noreturn)
 #elif defined(CC_GNU_COMPAT)
-# define noreturn __attribute__((noreturn))
+# define NORETURN __attribute__((noreturn))
 #else
-# define noreturn
+# define NORETURN
 #endif
 
 #if defined(CXX_DEPRECATED)
-# define deprecated(msg) [[deprecated(msg)]]
+# define DEPRECATED(msg) [[deprecated(msg)]]
 #elif defined(CC_MSVC)
-# define deprecated(msg) __declspec(deprecated(msg))
+# define DEPRECATED(msg) __declspec(deprecated(msg))
 #elif defined(CC_GNU_COMPAT)
-# define deprecated(msg) __attribute__((deprecated(msg)))
+# define DEPRECATED(msg) __attribute__((deprecated(msg)))
 #else
-# define deprecated(msg)
+# define DEPRECATED(msg)
 #endif
 
 #if defined(CXX_UNUSED)
-# define unused [[maybe_unused]]
+# define UNUSED [[maybe_unused]]
 #elif defined(CC_MSVC)
-# define unused __pragma(warning(supress: 4100 4101 4102 4189 4505))
+# define UNUSED __pragma(warning(supress: 4100 4101 4102 4189 4505))
 #elif defined(CC_GNU_COMPAT)
-# define unused __attribute__((unused))
+# define UNUSED __attribute__((unused))
 #else
-# define unused
+# define UNUSED
 #endif
 
 #if defined(CXX_NODISCARD)
-# define nodiscard [[nodiscard]]
+# define NODISCARD [[nodiscard]]
 #elif defined(CC_MSVC)
-# define nodiscard _Check_return_
+# define NODISCARD _Check_return_
 #elif defined(CC_GNU_COMPAT)
-# define nodiscard __attribute__((warn_unused_result))
+# define NODISCARD __attribute__((warn_unused_result))
 #else
-# define nodiscard
+# define NODISCARD
 #endif
 
 #if defined(CXX_FALLTHROUGH)
-# define fallthrough [[fallthrough]]
+# define FALLTHROUGH [[fallthrough]]
 #elif defined(CC_MSVC)
-# define fallthrough _Check_return_
+# define FALLTHROUGH _Check_return_
 #elif defined(CC_CLANG)
-# define fallthrough [[clang::fallthrough]]
+# define FALLTHROUGH [[clang::fallthrough]]
 #elif defined(CC_GNU_COMPAT)
 # if __GNUC__ >= 7
-#  define fallthrough __attribute__((fallthrough))
+#  define FALLTHROUGH __attribute__((fallthrough))
 # else // Older GCC versions didn't warn, so doesn't matter.
-#  define fallthrough
+#  define FALLTHROUGH
 # endif
 #else
-# define fallthrough
+# define FALLTHROUGH
 #endif
 
 #if defined(CC_MSVC)
-# define noinline __declspec(noinline)
+# define NOINLINE __declspec(noinline)
 #elif defined(CC_GNU_COMPAT)
-# define noinline __attribute__((noinline))
+# define NOINLINE __attribute__((noinline))
 #else
-# define noinline
+# define NOINLINE
+#endif
+
+// These lowercase definitions can cause issues with code that wasn't
+// expecting them, including headers, so don't define unless
+// specifically asked.
+
+#if defined(ATTRIB_USE_LOWERCASE)
+# define noreturn        NORETURN
+# define deprecated(msg) DEPRECATED(msg)
+# define unused          UNUSED
+# define nodiscard       NODISCARD
+# define fallthrough     FALLTHROUGH
+# define noinline        NOINLINE
 #endif
 
 // Avoid polluting the global namespace with our internal macros.
