@@ -7,8 +7,11 @@
 
 #define ABSTRACT = 0
 
+#define SELF (*this)
+
 #if defined(KW_USE_LOWERCASE)
 # define abstract ABSTRACT
+# define self     SELF
 #endif
 
 #endif
