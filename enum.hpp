@@ -25,7 +25,7 @@ using enum_type = typename std::underlying_type<
 
 // Cast an enum's value into its underlying type.
 template <typename Enum>
-constexpr enum_type<Enum> enum_value(Enum val)
+constexpr enum_type<Enum> enum_value(const Enum& val)
 {
     return static_cast< enum_type<Enum> >(val);
 }
@@ -34,7 +34,7 @@ constexpr enum_type<Enum> enum_value(Enum val)
 template <typename Enum>
 constexpr enum_type<Enum>& enum_value(Enum& val)
 {
-    return static_cast< enum_type<Enum>& >(val);
+    return reinterpret_cast< enum_type<Enum>& >(val);
 }
 
 #endif
