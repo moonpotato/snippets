@@ -5,8 +5,8 @@
 // This file relies on some template wizardry in the <type_traits>
 // header, appearing in C++11 and later.
 // TODO: Implement own versions of C++11-only helpers.
-#error "C++98 and below is unsupported by " __FILE__
-#endif
+#error "C++98 and below is unsupported."
+#else
 
 #include <type_traits>
 
@@ -37,4 +37,5 @@ constexpr enum_type<Enum>& enum_value(Enum& val)
     return reinterpret_cast< enum_type<Enum>& >(val);
 }
 
-#endif
+#endif // C++11 guard.
+#endif // Header guard.
