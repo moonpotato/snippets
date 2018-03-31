@@ -25,3 +25,8 @@ attributes for a number of purposes, including:
 - Preventing function return values being ignored;
 - Clearly marking switch cases that should fallthrough; and
 - Preventing the compiler from inlining functions.
+
+### enum.hpp
+
+Contains a type-independent way of casting to and from the underlying
+integral type of an enum (including a scoped enum).
