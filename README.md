@@ -26,6 +26,11 @@ attributes for a number of purposes, including:
 - Clearly marking switch cases that should fallthrough; and
 - Preventing the compiler from inlining functions.
 
+### keywords.{h,hpp}
+
+Contains some macros for new pseudo-keywords to shorten/increase
+meaning of certain common patterns in C/C++.
+
 ### enum.hpp
 
 Contains a type-independent way of casting to and from the underlying
