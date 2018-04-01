@@ -4,6 +4,13 @@ reused in other projects.
 
 ## Files
 
+### Makefile
+
+This isn't a makefile for the snippets project, it's a snippet
+itself. This makefile has debug and release modes, and auto-generates
+logic ensuring all C++ files are recompiled whenever one of their
+dependencies (including header files) changes.
+
 ### c_array.hpp
 
 Contains C++ template functions for safer operations on C-style
