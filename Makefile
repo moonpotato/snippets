@@ -6,12 +6,12 @@ EXEC = a.out # CHANGE
 
 ################################################################
 
-SOURCES = $(wildcard *.cpp)
-OBJECTS = $(SOURCES:.cpp=.o)
-DEPENDS = $(OBJECTS:.o=.d)
-
 OBJDEST = obj
 DEPDEST = dep
+
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(patsubst %.cpp,$(OBJDEST)/%.o,$(SOURCES))
+DEPENDS = $(patsubst %.cpp,$(DEPDEST)/%.d,$(SOURCES))
 
 ################################################################
 
@@ -31,7 +31,7 @@ $(EXEC): $(OBJDEST) $(DEPDEST)
 
 # Filter is needed to removed the directories from the list
 # of files to be built
-$(EXEC): $(OBJDEST)/$(OBJECTS)
+$(EXEC): $(OBJECTS)
 	$(CXX) $(FLAGS) $(filter %.o,$^) -o $@
 
 ################################################################
@@ -46,7 +46,7 @@ $(DEPDEST):
 
 # This automatically includes the generated dependency file for
 # each source file
--include $(DEPDEST)/$(DEPENDS)
+-include $(DEPENDS)
 
 ################################################################
 
@@ -61,4 +61,4 @@ $(OBJDEST)/%.o: %.cpp
 .PHONY: clean
 
 clean:
-	rm -f $(EXEC) $(OBJDEST)/$(OBJECTS) $(DEPDEST)/$(DEPENDS)
+	rm -f $(EXEC) $(OBJECTS) $(DEPENDS)
