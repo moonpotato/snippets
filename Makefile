@@ -1,7 +1,10 @@
-CXX = g++
-FLAGS = -Wall -Wextra -Wshadow -Wrestrict
 
-EXEC = mwparse
+CXX = g++
+FLAGS = -Wall -Wextra -Wshadow -Wrestrict # CHANGE (if needed)
+
+EXEC = a.out # CHANGE
+
+################################################################
 
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -10,17 +13,28 @@ DEPENDS = $(OBJECTS:.o=.d)
 OBJDEST = obj
 DEPDEST = dep
 
+################################################################
+
 .PHONY: release debug
 
-release: FLAGS += -DNDEBUG -O2
+release: FLAGS += -DNDEBUG -O2 # CHANGE (if needed)
 release: $(EXEC)
 
-debug: FLAGS += -g
+debug: FLAGS += -g # CHANGE (if needed)
 debug: $(EXEC)
 
+################################################################
+
+# Include the obj and dep directories as dependencies so they're
+# built first time around
 $(EXEC): $(OBJDEST) $(DEPDEST)
+
 $(EXEC): $(OBJDEST)/$(OBJECTS)
+	# Filter is needed to removed the directories from the list
+	# of files to be built
 	$(CXX) $(FLAGS) $(filter %.o,$^) -o $@
+
+################################################################
 
 $(OBJDEST):
 	mkdir -p $@
@@ -28,10 +42,21 @@ $(OBJDEST):
 $(DEPDEST):
 	mkdir -p $@
 
+################################################################
+
+# This automatically includes the generated dependency file for
+# each source file
 -include $(DEPDEST)/$(DEPENDS)
 
+################################################################
+
 $(OBJDEST)/%.o: %.cpp
-	$(CXX) $(FLAGS) -MMD -MF $(patsubst $(OBJDEST)/%.o,$(DEPDEST)/%.d,$@) -c $< -o $@
+	$(CXX) $(FLAGS) -MMD -MF \
+	$(patsubst $(OBJDEST)/%.o,$(DEPDEST)/%.d,$@) -c $< -o $@
+	# The -MF option specifies the name of each dependency file
+	# that gcc automatically creates for each object file
+
+################################################################
 
 .PHONY: clean
 
