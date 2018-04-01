@@ -29,9 +29,9 @@ debug: $(EXEC)
 # built first time around
 $(EXEC): $(OBJDEST) $(DEPDEST)
 
+# Filter is needed to removed the directories from the list
+# of files to be built
 $(EXEC): $(OBJDEST)/$(OBJECTS)
-	# Filter is needed to removed the directories from the list
-	# of files to be built
 	$(CXX) $(FLAGS) $(filter %.o,$^) -o $@
 
 ################################################################
@@ -50,11 +50,11 @@ $(DEPDEST):
 
 ################################################################
 
+# The -MF option specifies the name of each dependency file
+# that gcc automatically creates for each object file
 $(OBJDEST)/%.o: %.cpp
 	$(CXX) $(FLAGS) -MMD -MF \
 	$(patsubst $(OBJDEST)/%.o,$(DEPDEST)/%.d,$@) -c $< -o $@
-	# The -MF option specifies the name of each dependency file
-	# that gcc automatically creates for each object file
 
 ################################################################
 
