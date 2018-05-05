@@ -8,21 +8,23 @@
 // these will cause an error if unintentionally passed a pointer.
 
 #if __cplusplus < 201103L // Remove constexpr for C++98 and below.
-# define constexpr        // Shouldn't matter under an optimizing
-#endif                    // compiler, anyway.
+# define CONSTEXPR        // Shouldn't matter under an optimizing
+#else                     // compiler, anyway.
+# define CONSTEXPR constexpr
+#endif
 
 // The number of elements in a C-style array.
 template <typename T, std::size_t N>
-constexpr std::size_t array_nelems (T(&)[N]) { return N; }
+CONSTEXPR std::size_t array_nelems (T(&)[N]) { return N; }
 
 // The size of each element in a C-style array.
 template <typename T, std::size_t N>
-constexpr std::size_t array_elemsz (T(&)[N]) { return sizeof (T); }
+CONSTEXPR std::size_t array_elemsz (T(&)[N]) { return sizeof (T); }
 
 // The total size occupied by a C-style array.
 template <typename T, std::size_t N>
-constexpr std::size_t array_size   (T(&)[N]) { return sizeof (T[N]); }
+CONSTEXPR std::size_t array_size   (T(&)[N]) { return sizeof (T[N]); }
 
-#undef constexpr
+#undef CONSTEXPR
 
 #endif
