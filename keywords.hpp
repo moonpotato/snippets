@@ -9,9 +9,12 @@
 
 #define SELF (*this)
 
+#define RESTRICT __restrict__
+
 #if defined(KW_USE_LOWERCASE)
 # define abstract ABSTRACT
 # define self     SELF
+# define restrict RESTRICT
 #endif
 
 #endif
